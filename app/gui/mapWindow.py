@@ -45,13 +45,13 @@ class MapWindow(QMainWindow):
         layout_side_bar.addWidget(QLabel("Side Bar"), alignment=Qt.AlignmentFlag.AlignCenter)
 
         ### SET UP FRAME ###
-        map_img = QPixmap(os.path.join(ROOT_DIR, "../data/map/mars_map.png"))
-        map_label = QLabel()
-        map_label.setPixmap(map_img)
-        map_label.setStyleSheet("background-color: black;")
-        map_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        map_label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
-        layout_map.addWidget(map_label)
+        self.map_img = QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png"))
+        self.map_label = QLabel()
+        self.map_label.setPixmap(self.map_img)
+        self.map_label.setStyleSheet("background-color: black;")
+        self.map_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.map_label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        layout_map.addWidget(self.map_label)
 
         
         
@@ -63,10 +63,10 @@ class MapWindow(QMainWindow):
         ## ADD TOP BAR BUTTONS ##
         exit_button = layout_top_bar.addWidget(exitButton.ExitButton(self), alignment=Qt.AlignmentFlag.AlignRight)
         layout_top_bar.addStretch()
-        temperature_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="Temp"), alignment=Qt.AlignmentFlag.AlignLeft)
-        elevation_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="Elevation"), alignment=Qt.AlignmentFlag.AlignLeft)
-        slope_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="Slope"), alignment=Qt.AlignmentFlag.AlignLeft)
-        base_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="Base"), alignment=Qt.AlignmentFlag.AlignLeft)
+        temperature_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="thermal"), alignment=Qt.AlignmentFlag.AlignLeft)
+        elevation_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="elevation"), alignment=Qt.AlignmentFlag.AlignLeft)
+        slope_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="slope"), alignment=Qt.AlignmentFlag.AlignLeft)
+        base_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="optical"), alignment=Qt.AlignmentFlag.AlignLeft)
 
         widget = QWidget()
         widget.setLayout(layout_main)
@@ -74,5 +74,15 @@ class MapWindow(QMainWindow):
 
     ## PRINTS THE MAP TYPE OF THE BUTTON PRESSED, USE THIS FOR WHATEVR YOU WANT ##
     def set_map(self, map_type):
-        print(map_type)
+        map_dict = {
+            "optical" : QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png")),
+            "slope" : QPixmap(os.path.join(ROOT_DIR, "../data/map/slope_map.png")),
+            "elevation" : QPixmap(os.path.join(ROOT_DIR, "../data/map/elevation_map.png")),
+            "thermal" : QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png"))
+        }
+        self.map_img = map_dict[map_type]
+        self.map_label.setPixmap(self.map_img)
+
+        
+
     
