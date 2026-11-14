@@ -1,0 +1,29 @@
+{
+  "name": "gale_mission",
+  "description": "Elevation (metres, relative to the Mars datum) for the mission area at the foot of Mount Sharp, Gale Crater.",
+  "units": "metres",
+  "dtype": "float32",
+  "shape_rows_cols": [
+    2000,
+    2000
+  ],
+  "row_0_is": "north edge",
+  "col_0_is": "west edge",
+  "bbox_west_south_east_north_deg": [
+    137.24767,
+    -4.89918,
+    137.33233,
+    -4.81482
+  ],
+  "longitude": "degrees east",
+  "cell_size_m": {
+    "x": 2.5001,
+    "y": 2.5002
+  },
+  "elevation_min_m": -4416.66,
+  "elevation_max_m": -3303.38,
+  "invalid_cells": 0,
+  "source": "MRO HiRISE Gale Crater DEM (Gale_DEM_SMG_1m) via NASA/JPL Mars Trek",
+  "source_url": "https://trek.nasa.gov/mars/trekarcgis/rest/services/Gale_DEM_SMG_1m/ImageServer/exportImage?bbox=137.24767,-4.89918,137.33233,-4.81482&bboxSR=104905&size=2000,2000&format=tiff&pixelType=F32&interpolation=RSP_BilinearInterpolation&f=image",
+  "downloaded_utc": "2026-11-14T12:59:48+00:00"
+}
