@@ -1,7 +1,7 @@
-from curses import window
 import sys
 
-import mapWindow
+import gui.mapWindow as mapWindow
+
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QPushButton, QWidget
 
