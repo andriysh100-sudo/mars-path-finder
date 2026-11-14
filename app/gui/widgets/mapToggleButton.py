@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QPushButton, QWidget
 
 class MapToggleButton(QPushButton):
-    def __init__(self, parent=QMainWindow, type="default"):
+    def __init__(self, parent, type="default"):
         super().__init__(parent)
         self.setText(type)
 
