@@ -19,6 +19,13 @@ class MapWindow(QMainWindow):
     def initUI(self):
         self.setWindowTitle("MARS NAVIGATORZ")
 
+        self.map_dict = {
+            "optical" : QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png")),
+            "slope" : QPixmap(os.path.join(ROOT_DIR, "../data/map/slope_map.png")),
+            "elevation" : QPixmap(os.path.join(ROOT_DIR, "../data/map/elevation_map.png")),
+            "thermal" : QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png"))
+        }
+
         layout_main = QVBoxLayout()
         layout_top_bar = QHBoxLayout()
         layout_content = QHBoxLayout()
@@ -74,13 +81,7 @@ class MapWindow(QMainWindow):
 
     ## PRINTS THE MAP TYPE OF THE BUTTON PRESSED, USE THIS FOR WHATEVR YOU WANT ##
     def set_map(self, map_type):
-        map_dict = {
-            "optical" : QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png")),
-            "slope" : QPixmap(os.path.join(ROOT_DIR, "../data/map/slope_map.png")),
-            "elevation" : QPixmap(os.path.join(ROOT_DIR, "../data/map/elevation_map.png")),
-            "thermal" : QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png"))
-        }
-        self.map_img = map_dict[map_type]
+        self.map_img = self.map_dict[map_type]
         self.map_label.setPixmap(self.map_img)
 
         
