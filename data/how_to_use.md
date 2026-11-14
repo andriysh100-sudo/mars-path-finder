@@ -1,7 +1,7 @@
 # Data
 
 Elevation data for the mission area at the foot of Mount Sharp, Gale Crater (5 × 5 km).
-Created by [`scripts/fetch_data.py`](../scripts/README.md). Pictures of the area are in [`docs/`](../docs/README.md).
+Created by [`scripts/fetch_data.py`](../scripts/fetch_data_how_to_use.md). Pictures of the area are in [`docs/pictures/`](../docs/pictures/).
 
 | File | Contents |
 | --- | --- |
