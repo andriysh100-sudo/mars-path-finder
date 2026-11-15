@@ -24,4 +24,5 @@ class GetPathButton(QPushButton):
             return
 
         print("Path from", start, "to", end)
-        print(run_a_star(start, end))
+        print(len(run_a_star(start, end)))
+        
