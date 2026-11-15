@@ -1,6 +1,6 @@
 import sys
 
-from app.gui import mapWindow
+from gui import mapWindow
 
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QPushButton, QWidget

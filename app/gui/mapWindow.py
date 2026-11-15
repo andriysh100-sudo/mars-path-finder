@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QBoxLayout, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QFrame, QSizePolicy, QLabel
 
-from app.gui.widgets import exitButton, mapToggleButton
+from gui.widgets import exitButton, mapToggleButton, mapLabel
 
 import os
 
@@ -44,6 +44,7 @@ class MapWindow(QMainWindow):
         layout_top_bar.setDirection(QBoxLayout.Direction.RightToLeft)
         layout_content.setContentsMargins(0, 0, 0, 0)
         layout_map.setContentsMargins(0, 0, 0, 0)
+        layout_map.hasHeightForWidth()
         layout_side_bar.setContentsMargins(0, 0, 0, 0)
 
         ## SET MAIN LAYOUT ##
@@ -53,11 +54,14 @@ class MapWindow(QMainWindow):
 
         ### SET UP FRAME ###
         self.map_img = QPixmap(os.path.join(ROOT_DIR, "../data/map/optical_map.png"))
-        self.map_label = QLabel()
+        #self.map_label = QLabel()
+        self.map_label = mapLabel.MapLabel(self)
         self.map_label.setPixmap(self.map_img)
+        self.map_label.paint_path([3,4,5,6])
+       
         self.map_label.setStyleSheet("background-color: black;")
         self.map_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.map_label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        self.map_label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         layout_map.addWidget(self.map_label)
 
         
