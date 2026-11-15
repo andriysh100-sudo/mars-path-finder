@@ -2,7 +2,7 @@
 from PySide6.QtCore import QObject, QEvent, Qt, QPoint
 from PySide6.QtGui import QPainter, QColor, QPen
 
-from app.gui.mapWindow import MapWindow
+from gui.mapWindow import MapWindow
 
 
 class InteractiveMap(MapWindow):
@@ -47,25 +47,26 @@ class InteractiveMap(MapWindow):
             self.end_point = (x, y)
             print("END:", self.end_point)
 
-        self.draw_points()
 
-    def draw_points(self):
-        pixmap = self.map_img.copy()
-        painter = QPainter(pixmap)
+        #self.draw_points()
 
-        painter.setPen(QPen(Qt.GlobalColor.white, 2))
-
-        if self.start_point is not None:
-            painter.setBrush(QColor("green"))
-            painter.drawEllipse(QPoint(*self.start_point), 8, 8)
-
-        if self.end_point is not None:
-            painter.setBrush(QColor("red"))
-            painter.drawEllipse(QPoint(*self.end_point), 8, 8)
-
-        painter.end()
-        self.map_label.setPixmap(pixmap)
+    #def draw_points(self):
+    #    pixmap = self.map_img.copy()
+    #    painter = QPainter(pixmap)
+#
+    #    painter.setPen(QPen(Qt.GlobalColor.white, 2))
+#
+    #    if self.start_point is not None:
+    #        painter.setBrush(QColor("green"))
+    #        painter.drawEllipse(QPoint(*self.start_point), 8, 8)
+#
+    #    if self.end_point is not None:
+    #        painter.setBrush(QColor("red"))
+    #        painter.drawEllipse(QPoint(*self.end_point), 8, 8)
+#
+    #    painter.end()
+    #    self.map_label.setPixmap(pixmap)
 
     def set_map(self, map_type):
         super().set_map(map_type)
-        self.draw_points()
+     #   self.draw_points()

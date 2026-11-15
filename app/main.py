@@ -1,6 +1,6 @@
 import sys
 
-from app.gui.interactiveMap import InteractiveMap
+from gui.interactiveMap import InteractiveMap
 
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QPushButton, QWidget
