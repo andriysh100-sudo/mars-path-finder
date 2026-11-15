@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QBoxLayout, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QFrame, QSizePolicy, QLabel
 
-from gui.widgets import exitButton, mapToggleButton
+from app.gui.widgets import exitButton, mapToggleButton
 
 import os
 
