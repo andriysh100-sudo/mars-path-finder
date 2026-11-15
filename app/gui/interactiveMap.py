@@ -2,7 +2,7 @@
 from PySide6.QtCore import QObject, QEvent, Qt, QPoint
 from PySide6.QtGui import QPainter, QColor, QPen
 
-from gui.mapWindow import MapWindow
+from app.gui.mapWindow import MapWindow
 
 
 class InteractiveMap(MapWindow):
