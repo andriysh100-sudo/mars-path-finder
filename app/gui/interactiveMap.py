@@ -12,6 +12,7 @@ class InteractiveMap(MapWindow):
 
         self.start_point = None
         self.end_point = None
+        self.path = None 
 
         # Listen for clicks on the existing map
         self.map_label.installEventFilter(self)

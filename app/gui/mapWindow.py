@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QBoxLayout, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QFrame, QSizePolicy, QLabel
 
-from app.gui.widgets import exitButton, mapToggleButton
+from app.gui.widgets import exitButton, mapToggleButton, getPathButton
 
 import os
 
@@ -69,6 +69,8 @@ class MapWindow(QMainWindow):
 
         ## ADD TOP BAR BUTTONS ##
         exit_button = layout_top_bar.addWidget(exitButton.ExitButton(self), alignment=Qt.AlignmentFlag.AlignRight)
+        layout_top_bar.addWidget(getPathButton.GetPathButton(self), alignment=Qt.AlignmentFlag.AlignRight)   # new
+
         layout_top_bar.addStretch()
         temperature_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="thermal"), alignment=Qt.AlignmentFlag.AlignLeft)
         elevation_button = layout_top_bar.addWidget(mapToggleButton.MapToggleButton(self, map_type="elevation"), alignment=Qt.AlignmentFlag.AlignLeft)
