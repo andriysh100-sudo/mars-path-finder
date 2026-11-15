@@ -1,6 +1,6 @@
 import sys
 
-from app.gui import mapWindow
+from app.gui.interactiveMap import InteractiveMap
 
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QPushButton, QWidget
@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QPushButton, QW
 
 def main():
     app = QApplication(sys.argv)
-    mainWindow = mapWindow.MapWindow()
+    mainWindow = InteractiveMap()
     mainWindow.showFullScreen()
     app.exec()
     return 0
