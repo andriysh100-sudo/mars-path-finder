@@ -1,5 +1,7 @@
 from PySide6.QtWidgets import QPushButton
 
+from scripts.a_star import run_a_star
+
 
 class GetPathButton(QPushButton):
 
@@ -22,4 +24,4 @@ class GetPathButton(QPushButton):
             return
 
         print("Path from", start, "to", end)
-        self.window.path = [start, end]      # stand-in until A* is connected
+        print(run_a_star(start, end))
