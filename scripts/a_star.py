@@ -7,10 +7,11 @@ A cell is blocked if its slope is >= SLOPE_LIMIT degrees. The route cost is the
 
 import json
 import os
-import time
 import numpy as np
 import math
 import heapq
+#import time #for testing
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SLOPE_LIMIT = 20    # degrees; must match the red threshold in 3_mission_slope.png
@@ -19,26 +20,6 @@ SURROUNDING_CELLS = (   # (row, col) offsets to the 8 neighbours of a cell
     (0, -1), (0, 1),
     (1, -1), (1, 0), (1, 1)
 )
-
-
-#def lonlat_to_cell(lon, lat, elevation, meta):
-#    """Longitude/latitude (degrees) -> (row, col) of the cell containing that point."""
-#    west, south, east, north = meta["bbox_west_south_east_north_deg"]
-#    rows, cols = elevation.shape
-#
-#    col = int((lon - west) / (east - west) * cols)
-#    row = int((north - lat) / (north - south) * rows)   # north is row 0
-#    return row, col
-
-
-#def cell_to_lonlat(row, col, elevation, meta):
-#    """(row, col) -> longitude/latitude of the cell's centre (hence the + 0.5)."""
-#    west, south, east, north = meta["bbox_west_south_east_north_deg"]
-#    rows, cols = elevation.shape
-#
-#    lon = west + (col + 0.5) / cols * (east - west)
-#    lat = north - (row + 0.5) / rows * (north - south)
-#    return lon, lat
 
 
 def load_data():
@@ -82,7 +63,6 @@ def neighbours(row, col, blocked, cell_m):
 
 def edge_cost(a, b, elevation, step_m):
     """Cost of stepping from cell a to neighbour b: the 3D distance in metres.
-
     Never less than step_m, so the straight-line heuristic never overestimates.
     """
     diff_height = elevation[a] - elevation[b]
@@ -91,7 +71,6 @@ def edge_cost(a, b, elevation, step_m):
 
 def heuristic(a, goal, cell_m):
     """A*'s guess of the remaining cost: straight-line distance in metres.
-
     It is never longer than the real route (admissible), which is what
     guarantees A* finds the shortest path.
     """
@@ -113,7 +92,6 @@ def rebuild_path(came_from, start, goal):
 
 def a_star(start, goal, blocked, elevation, cell_m):
     """Cheapest walkable route from start to goal as a list of cells, or None if there is none.
-
     Raises ValueError if start or goal is outside the grid or blocked.
     """
     # Check bounds before blocked[...]: a negative index wouldn't crash, it would wrap around.
@@ -133,22 +111,23 @@ def a_star(start, goal, blocked, elevation, cell_m):
     cost_so_far[start] = 0
     came_from = dict()   # cell -> the cell we reached it from (read by rebuild_path)
     visited = set()      # cells already fully explored
-    # To-do list of (priority, cell); heapq always pops the lowest priority first.
+
     # priority = cost so far + heuristic guess to the goal.
     open_heap = [(heuristic(start, goal, cell_m), start)]
 
     while open_heap:
         priority, current_cell = heapq.heappop(open_heap)
 
+        # if we have reached the goal
         if current_cell == goal:
             return rebuild_path(came_from, start, goal)
-        # heapq can't lower a priority, so a cell can be in the heap more than once.
-        # Only the first (cheapest) copy counts; skip the old ones.
+
+        # if the cell has already been visited
         if current_cell in visited:
             continue
-
         visited.add(current_cell)
         row, col = current_cell
+        
         for neighbour, step_m in neighbours(row, col, blocked, cell_m):
             new_cost = cost_so_far[current_cell] + edge_cost(current_cell, neighbour, elevation, step_m)
             if new_cost < cost_so_far[neighbour]:   # found a cheaper way to reach neighbour
@@ -156,10 +135,10 @@ def a_star(start, goal, blocked, elevation, cell_m):
                 came_from[neighbour] = current_cell
                 priority = new_cost + heuristic(neighbour, goal, cell_m)
                 heapq.heappush(open_heap, (priority, neighbour))
-    return None   # heap empty: everything reachable was explored, the goal is cut off
+    return None   # heap empty: everything reachable was explored, the goal is not reachable
 
 
-def run_a_star(start, goal): ## What format of start and goal (gridCell, pixel, longitude/latitude)
+def run_a_star(start, goal): ## Format of start and goal are a grid cell (row, col)
     elevation, meta = load_data()
     cell_m = meta["cell_size_m"]["x"]
     blocked = compute_blocked(compute_slope(elevation, cell_m))
@@ -167,21 +146,22 @@ def run_a_star(start, goal): ## What format of start and goal (gridCell, pixel, 
     return path
 
 
-if __name__ == "__main__":
-    # Both cells are in the main walkable region (see a_star_next_steps.md).
-    start = (200, 1000)
-    goal = (1800, 1000)
-    elevation, meta = load_data()
-    cell_m = meta["cell_size_m"]["x"]
-    blocked = compute_blocked(compute_slope(elevation, cell_m))
-
-    # perf_counter() is only meaningful as a difference between two readings.
-    start_time = time.perf_counter()
-    path = a_star(start, goal, blocked, elevation, cell_m)
-    elapsed = time.perf_counter() - start_time
-    print(f"{len(path)} cells, {elapsed:.1f} s")
-
-    # Sanity check: the route must never pass through a blocked cell.
-    for cell in path:
-        if blocked[cell]:
-            print(f"{cell} is in blocked")
+# For testing
+#if __name__ == "__main__":
+#    # Both cells are in the main walkable region (see a_star_next_steps.md).
+#    start = (200, 1000)
+#    goal = (1800, 1000)
+#    elevation, meta = load_data()
+#    cell_m = meta["cell_size_m"]["x"]
+#    blocked = compute_blocked(compute_slope(elevation, cell_m))
+#
+#    # perf_counter() is only meaningful as a difference between two readings.
+#    start_time = time.perf_counter()
+#    path = a_star(start, goal, blocked, elevation, cell_m)
+#    elapsed = time.perf_counter() - start_time
+#    print(f"{len(path)} cells, {elapsed:.1f} s")
+#
+#    # Sanity check: the route must never pass through a blocked cell.
+#    for cell in path:
+#        if blocked[cell]:
+#            print(f"{cell} is in blocked")
