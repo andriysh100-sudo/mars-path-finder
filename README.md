@@ -19,3 +19,10 @@ All data comes from NASA's **[JPL Mars Trek](https://trek.nasa.gov/mars/)**, a w
 
 Credits: NASA/JPL-Caltech Mars Trek; HiRISE: NASA/JPL-Caltech/University of Arizona;
 CTX: NASA/JPL-Caltech/MSSS; Viking: NASA/USGS.
+
+
+<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/106e189c-8b4c-4650-94a4-42d42f375620" />
+
+
+<img width="1906" height="1078" alt="image" src="https://github.com/user-attachments/assets/497146d4-f4ee-4940-ad67-df4e4491befe" />
+
